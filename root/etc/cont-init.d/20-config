@@ -1,0 +1,25 @@
+#!/usr/bin/with-contenv bash
+
+# make folders
+mkdir -p \
+	/config \
+	/downloads
+
+# copy config
+[[ ! -f /config/aria2.conf ]] && cp \
+	/defaults/aria2.conf /config/aria2.conf
+
+[[ ! -f /config/aria2.session ]] && touch /config/aria2.session
+
+# permissions
+chown -R alpine:alpine \
+	/config \
+	/downloads \
+
+if [[ $(stat -c '%a' /config) -lt 700 ]]; then
+    chmod 755 /config /downloads
+fi
+
+if [[ $(stat -c '%a' /config/aria2.conf) -lt 600 ]]; then
+    find /config -type f -maxdepth 1 -exec chmod 644 {} \;
+fi

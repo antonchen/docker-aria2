@@ -1,0 +1,12 @@
+#!/usr/bin/with-contenv bash
+
+_term() {
+  echo "Caught SIGTERM signal!"
+  pkill -15 aria2c
+}
+
+        trap _term SIGTERM
+	
+	s6-setuidgid alpine aria2c --conf-path=/config/aria2.conf &
+
+	wait

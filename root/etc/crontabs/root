@@ -1,0 +1,2 @@
+# Update trackers
+0 06 * * * /bin/bash /app/scripts/update-trackers.sh > /dev/null 2>&1
