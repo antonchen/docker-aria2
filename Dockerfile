@@ -31,5 +31,5 @@ RUN \
 COPY root/ /
 
 # ports and volumes
-EXPOSE 80 6800 51467 51467/udp
+EXPOSE 8000 6800 51467 51467/udp
 VOLUME /config /downloads

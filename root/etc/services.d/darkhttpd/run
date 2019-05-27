@@ -1,4 +1,4 @@
 #!/usr/bin/with-contenv bash
 
 exec \
-    darkhttpd /ariang --port 80
+    darkhttpd /ariang --port 8000
