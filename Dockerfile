@@ -1,4 +1,4 @@
-FROM 0x416e746f6e0a/alpine-base:3.9
+FROM 0x416e746f6e0a/alpine-base:3.11
 
 # set maintainer label
 LABEL MAINTAINER="Anton Chen <contact@antonchen.com>"
