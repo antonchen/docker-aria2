@@ -4,7 +4,7 @@
 # Last Modified: 2019-04-17 22:20:04
 # Description: 
 Conf="/config/aria2.conf"
-Trackers="$(curl -s https://raw.githubusercontent.com/ngosang/trackerslist/master/trackers_all.txt|awk NF|sed ':a;N;s/\n/,/g;ta')"
+Trackers="$(curl -s https://raw.githubusercontent.com/XIU2/TrackersListCollection/master/all.txt|awk NF|sed ':a;N;s/\n/,/g;ta')"
 
 if [ "x$Trackers" == "x" ]; then
     exit
