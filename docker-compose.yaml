@@ -1,0 +1,20 @@
+version: "3.8"
+services:
+  aria2:
+    image: antonhub/aria2
+    container_name: aria2
+    network_mode: host
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Asia/Shanghai
+    volumes:
+      - /downloads/config/aria2:/config
+      - /downloads/Aria2:/downloads
+    restart: always
+    labels:
+      - traefik.enable=false
+      - homepage.group=Download
+      - homepage.name=Aria2
+      - homepage.icon=ariang.png
+      - homepage.href=http://aria2.docker.local

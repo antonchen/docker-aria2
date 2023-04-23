@@ -1,0 +1,34 @@
+kind: pipeline
+name: aria2
+
+steps:
+- name: docker
+  environment:
+    DOCKER_BUILDKIT: 1
+  image: plugins/docker
+  privileged: true
+  volumes:
+  - name: data
+    path: /drone
+  settings:
+    storage_path: /drone/docker-storage
+    mirror: http://mirror.docker.local
+    custom_dns: 10.0.0.254
+    username:
+      from_secret: docker_username
+    password:
+      from_secret: docker_password
+    repo: antonhub/aria2
+    tags:
+    - latest
+
+trigger:
+  branch:
+  - main
+  event:
+  - push
+
+volumes:
+- name: data
+  host:
+    path: /storage/drone-runner-docker

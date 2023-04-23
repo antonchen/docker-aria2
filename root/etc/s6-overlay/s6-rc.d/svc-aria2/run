@@ -1,0 +1,4 @@
+#!/usr/bin/with-contenv bash
+# shellcheck shell=bash
+exec \
+    s6-setuidgid $RUNUSER aria2c --conf-path=/config/aria2.conf

@@ -1,0 +1,4 @@
+#!/usr/bin/with-contenv bash
+
+exec \
+    darkhttpd /app/ariang --port 8000

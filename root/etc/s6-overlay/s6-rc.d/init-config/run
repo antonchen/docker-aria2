@@ -1,0 +1,38 @@
+#!/usr/bin/with-contenv bash
+# shellcheck shell=bash
+RUNUSER=${RUNUSER:-debian}
+
+# create folders
+mkdir -p \
+	/config \
+	/downloads
+
+# copy config
+if [ ! -f /config/aria2.conf ]; then
+    _new_passwd="$(openssl rand -base64 12 | tr -d '+=/')"
+	cp /defaults/aria2.conf /config/aria2.conf
+    sed -i "s/^rpc-secret=.*$/rpc-secret=$_new_passwd/g" /config/aria2.conf
+    echo -e "\n\n-------------------\nRPC secret is: $_new_passwd\n-------------------"
+    /bin/bash /app/scripts/update-trackers.sh
+fi
+
+if [ ! -f /config/aria2.session ]; then
+	touch /config/{aria2.session,dht.dat,dht6.dat}
+fi
+
+# permissions
+lsiown -R $RUNUSER:$RUNUSER \
+	/config \
+	/downloads
+
+if [ -d /app/scripts ]; then
+    find /app/scripts -type f|xargs chmod 755
+fi
+
+if [ $(stat -c '%a' /config) -lt 700 ]; then
+    chmod 755 /config /downloads
+fi
+
+if [ $(stat -c '%a' /config/aria2.conf) -lt 600 ]; then
+    find /config -type f -maxdepth 1 -exec chmod 644 {} \;
+fi
